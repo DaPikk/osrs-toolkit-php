@@ -131,7 +131,10 @@ class RequestFactory
         'mailsetdomainblocklist' => 'mail\SetDomainBlockList',
         'mailsetdomaindisabledstatus' => 'mail\SetDomainDisabledStatus',
         'mailsetdomainmailboxlimits' => 'mail\SetDomainMailboxLimits',
-        'accountgetbalance' => 'account\GetBalance'
+        'accountgetbalance' => 'account\GetBalance',
+        // EVENT polling commands
+        'eventpoll' => 'event\PollEvent',
+        'eventack' => 'event\PollAck',
         );
 
     public static function build($func, $type, $dataObject)
