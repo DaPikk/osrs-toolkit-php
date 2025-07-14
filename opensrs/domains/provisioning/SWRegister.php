@@ -85,7 +85,7 @@ class SWRegister extends Base
             }
         }
 
-        // Special handling for transfer - ensure custom_transfer_nameservers is always present as an seting
+        // Special handling for transfer - ensure custom_transfer_nameservers is always present as an array
         if ($regType === 'transfer') {
             if (!isset($attributes['custom_transfer_nameservers'])) {
                 $attributes['custom_transfer_nameservers'] = 0;
