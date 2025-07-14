@@ -3,6 +3,7 @@
 namespace opensrs\backwardcompatibility\dataconversion\domains\provisioning;
 
 use opensrs\backwardcompatibility\dataconversion\DataConversion;
+use opensrs\Exception;
 
 class SWRegister extends DataConversion
 {
@@ -52,10 +53,11 @@ class SWRegister extends DataConversion
             // if data->custom_nameservers == 1, nameserver_list
             // is populated with data->name1, data->name2 etc
             // up to max potential data->name10
-            // 'nameserver_list' => 'data->nameserver_list',
+            'nameserver_list' => 'data->nameserver_list',
             'owner_confirm_address' => 'data->owner_confirm_address',
             'period' => 'data->period',
             'premium_price_to_verify' => 'data->premium_price_to_verify',
+            'auth_info' => 'data->auth_info',
             'reg_domain' => 'data->reg_domain',
             'reg_username' => 'data->reg_username',
             'reg_password' => 'data->reg_password',
@@ -77,41 +79,74 @@ class SWRegister extends DataConversion
 
         $newDataObject = $p->convertDataObject($dataObject, $newStructure);
 
-        // run customizations required by this particular class 
-
-        // set custom nameservers to nameserver_list
+        // Check if we need to handle custom nameservers
         if (isset($dataObject->data)) {
-            if ($dataObject->data->custom_nameservers == 1) {
-                $newDataObject->attributes->nameserver_list = array();
+            if (
+                (isset($dataObject->data->custom_nameservers) && (int)$dataObject->data->custom_nameservers === 1) ||
+                (isset($dataObject->data->custom_transfer_nameservers) && (int)$dataObject->data->custom_transfer_nameservers === 1)
+            ) {
+                // ✅ Normalize keys first
+                $dataObject->data->nameserver_list = array_values((array)$dataObject->data->nameserver_list);
 
-                for ($j = 1; $j <= 10; ++$j) {
-                    $tns = 'name'.$j;
-                    $tso = 'sortorder'.$j;
+                if (empty($dataObject->data->nameserver_list)) {
+                    throw new Exception("nameserver_list is required when custom_nameservers or custom_transfer_nameservers is set to 1 ");
+                }
 
-                    if (
-                        isset($dataObject->data->$tns) &&
-                        $dataObject->data->$tns != '' &&
-                        isset($dataObject->data->$tso) &&
-                        $dataObject->data->$tso
-                    ) {
-                        $nameserver = new \stdClass();
-                        $nameserver->name = $dataObject->data->{$tns};
-                        $nameserver->sortorder = $dataObject->data->{$tso};
+                // ✅ Set normalized list into attributes
+                $newDataObject->attributes->nameserver_list = $dataObject->data->nameserver_list;
+                
+                if (!empty($newDataObject->attributes->nameserver_list)) {
+                    $normalizedList = [];
+                    foreach ($dataObject->data->nameserver_list as $ns) {
+                        $nsArray = (array) $ns;
+                        if (!empty($nsArray['name'])) {
+                            $normalizedList[] = [
+                                'name' => $nsArray['name'],
+                                'sortorder' => (int) $nsArray['sortorder']
+                            ];
+                        }
+                    }
+                    $dataObject->data->nameserver_list = array_values($normalizedList);
 
-                        $newDataObject->attributes->nameserver_list[] = $nameserver;
+                    if (empty($normalizedList)) {
+                        throw new Exception('nameserver_list is invalid — contains only empty names');
+                    }
+
+                    $newDataObject->attributes->nameserver_list = array_values($normalizedList);
+                }
+
+                // ✅ Optional: legacy fallback logic if you still support name1..10
+                if (empty($newDataObject->attributes->nameserver_list)) {
+                    for ($j = 1; $j <= 10; ++$j) {
+                        $tns = 'name' . $j;
+                        $tso = 'sortorder' . $j;
+
+                        if (
+                            !empty($dataObject->data->$tns) &&
+                            !empty($dataObject->data->$tso)
+                        ) {
+                            $nameserver = new \stdClass();
+                            $nameserver->name = $dataObject->data->{$tns};
+                            $nameserver->sortorder = $dataObject->data->{$tso};
+
+                            $newDataObject->attributes->nameserver_list[] = $nameserver;
+                        }
                     }
                 }
             }
         }
 
-        if (isset($dataObject->personal)) {
-            $newDataObject->attributes->contact_set = new \stdClass();
-            $newDataObject->attributes->contact_set->owner = $dataObject->personal;
-            $newDataObject->attributes->contact_set->admin = $dataObject->personal;
-            $newDataObject->attributes->contact_set->billing = $dataObject->personal;
-            $newDataObject->attributes->contact_set->tech = $dataObject->personal;
+        if (!isset($newDataObject->attributes->contact_set) || empty((array)$newDataObject->attributes->contact_set)) {
+            if (isset($dataObject->data->contact_set)) {
+                $newDataObject->attributes->contact_set = $dataObject->data->contact_set;
+            } elseif (isset($dataObject->personal)) {
+                $newDataObject->attributes->contact_set = new \stdClass();
+                $newDataObject->attributes->contact_set->owner = $dataObject->personal;
+                $newDataObject->attributes->contact_set->admin = $dataObject->personal;
+                $newDataObject->attributes->contact_set->billing = $dataObject->personal;
+                $newDataObject->attributes->contact_set->tech = $dataObject->personal;
+            }
         }
-        // end customizations
 
         return $newDataObject;
     }
