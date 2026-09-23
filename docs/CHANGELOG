@@ -1,3 +1,10 @@
+Version 5.0.0 (September 2026)
+=====================================
+* Moved fork to separate repo for community updates as main code seems not to have been updated for a decade
+* Marked new version and ran PHP tests
+* Supports PHP 7.* up to PHP 8.4
+* Added features/patches/fixes that were on main repo pending for many years
+
 Version 4.0.0 (October 2015)
 =====================================
 * First release in over 2 years!
