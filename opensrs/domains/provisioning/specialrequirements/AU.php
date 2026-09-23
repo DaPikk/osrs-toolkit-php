@@ -32,9 +32,9 @@ class AU extends Base
         parent::__construct();
     }
 
-    public function __deconstruct()
+    public function __destruct()
     {
-        parent::__deconstruct();
+        parent::__destruct();
     }
 
     public function meetsSpecialRequirements($dataObject)

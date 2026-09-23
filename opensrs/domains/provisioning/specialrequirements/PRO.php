@@ -18,9 +18,9 @@ class PRO extends Base
         'profession',
         );
 
-    public function __construct()
+    public function __destruct()
     {
-        parent::__construct();
+        parent::__destruct();
     }
 
     public function __deconstruct()
@@ -40,7 +40,7 @@ class PRO extends Base
         // values
         foreach ($this->requiredFields as $reqData) {
             if ($dataObject->professional_data->$reqData == '') {
-                throw new Exception('oSRS Error - '.$reqData[$i].' is not defined.');
+                throw new Exception('oSRS Error - '.$reqData.' is not defined.');
             }
         }
 

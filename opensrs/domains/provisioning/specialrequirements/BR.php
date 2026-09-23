@@ -15,9 +15,9 @@ class BR extends Base
         parent::__construct();
     }
 
-    public function __deconstruct()
+    public function __destruct()
     {
-        parent::__deconstruct();
+        parent::__destruct();
     }
 
     public function meetsSpecialRequirements($dataObject)
@@ -32,7 +32,7 @@ class BR extends Base
         // values
         foreach ($this->requiredFields as $reqData) {
             if ($dataObject->data->$reqData == '') {
-                throw new Exception('oSRS Error - '.$reqData[$i].' is not defined.');
+                throw new Exception('oSRS Error - '.$reqData.' is not defined.');
             }
         }
 
