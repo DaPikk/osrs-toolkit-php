@@ -1,6 +1,17 @@
 <?php
 
-require dirname(__FILE__).'/../vendor/autoload.php';
+$autoloaders = [
+			dirname(__DIR__, 3) . '/autoload.php', // Composer-installed package
+			dirname(__DIR__) . '/vendor/autoload.php', // standalone checkout
+		];
+
+foreach ($autoloaders as $autoload) {
+	if (is_file($autoload)) {
+	  require_once $autoload;
+	  break;
+	}
+}
+
 defined('OPENSRSURI') or require_once dirname(__FILE__).'/openSRS_config.php';
 
 use opensrs\Request;
@@ -89,10 +100,5 @@ function array_filter_recursive($input)
         }
     }
 
-    return array_filter($input, 'is_not_null');
-}
-
-function is_not_null($value)
-{
-    return !is_null($value);
+    return array_filter($input);
 }
