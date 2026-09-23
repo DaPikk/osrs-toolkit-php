@@ -57,13 +57,9 @@ function object2array($data)
 // Call parsers and functions of openSRS
 function processOpenSRS($type = '', $data = '')
 {
-    try {
-        $request = new Request();
+    $request = new Request();
 
-        return $request->process($type, $data);
-    } catch (Exception $e) {
-        trigger_error($e->getMessage(), E_USER_WARNING);
-    }
+    return $request->process($type, $data);
 }
 
 function convertArray2Formatted($type = '', $data = '')

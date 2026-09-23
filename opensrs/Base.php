@@ -21,6 +21,7 @@ class Base
     private $_socketErrorMsg = false;
     private $_socketTimeout = self::DEFAULT_SOCKET_TIMEOUT;
     private $_socketReadTimeout = self::DEFAULT_SOCKET_TIMEOUT;
+    private $osrs_debug = false;
 
     protected $_opsHandler;
 
@@ -181,6 +182,9 @@ class Base
         } else {
             $data = $buf;
         }
+        if (!empty($this->osrs_debug)) {
+            //print_r('<pre>'.htmlentities($data).'</pre>');//\Registrar::osrs_log('tld', $this->getDomain(), htmlentities($data));
+        }
         return $data;
     }
 
@@ -195,6 +199,9 @@ class Base
      */
     private function send_data($message)
     {
+        if (!empty($this->osrs_debug)) {
+            //print_r('<pre>'.htmlentities($message).'</pre>');//\Registrar::osrs_log('tld', $this->getDomain(), htmlentities($message));
+        }
         return $this->writeData($this->_socket, $message);
     }
 

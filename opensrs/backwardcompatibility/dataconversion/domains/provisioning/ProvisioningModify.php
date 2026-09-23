@@ -52,6 +52,9 @@ class ProvisioningModify extends DataConversion
             'postal_code' => 'data->personal->postal_code',
             'state' => 'data->personal->state',
             'url' => 'data->personal->url',
+            
+            //hardcoded
+            'privacy_state' => 'data->state',
 
             /*
              * $contact_types = explode( ",", data->contact_type ),
@@ -85,6 +88,14 @@ class ProvisioningModify extends DataConversion
         $newDataObject = $p->convertDataObject($dataObject, $newStructure);
 
         // run customizations required by this particular class 
+        if (
+            isset($newDataObject->attributes->privacy_state) &&
+            isset($dataObject->data->data) &&
+            $dataObject->data->data === 'whois_privacy_state'
+        ) {
+            $newDataObject->attributes->state = $newDataObject->attributes->privacy_state;
+            unset($newDataObject->attributes->privacy_state);
+        }
 
         if (
             isset($newDataObject->contact_set) &&

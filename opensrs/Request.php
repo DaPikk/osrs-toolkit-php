@@ -35,7 +35,8 @@ class Request
                 $dataArray = Spyc::YAMLLoad($data);
                 break;
             default:
-                $dataArray = $data;
+                $json = str_replace('\\"', '"', $data);   //  Replace  \"  with " for JSON that comes from Javascript
+                $dataArray = json_decode($json, true);
         }
         // Convert associative array to object
         $dataObject = $this->array2object($dataArray);
