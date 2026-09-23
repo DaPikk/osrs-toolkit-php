@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: move_user_messages
 // Move user messages to a different folder. 

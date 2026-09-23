@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: get_user_attribute_history
 // Get historical values for an attribute for a user. 

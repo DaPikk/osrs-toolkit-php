@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: get_domain
 // Retrieve settings and other information for a domain 

@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: change_company
 // Change the attributes of an existing company. 

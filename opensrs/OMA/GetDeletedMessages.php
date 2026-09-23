@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: get_deleted_messages
 // Retrieve a list of recoverable deleted emails belonging to a user  	

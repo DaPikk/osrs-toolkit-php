@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: migration_status
 // Get detailed information about the progress and results of a migration job.  	

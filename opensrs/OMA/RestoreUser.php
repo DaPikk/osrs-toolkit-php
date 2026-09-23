@@ -2,10 +2,11 @@
 
 namespace opensrs\OMA;
 
-use opensrs\OMA;
-// command: restore_user
-// Restore a deleted user 
+use opensrs\OMA; 
 use opensrs\Exception;
+
+// command: restore_user
+// Restore a deleted user
 
 class RestoreUser
 {

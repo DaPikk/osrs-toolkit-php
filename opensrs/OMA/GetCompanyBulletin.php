@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: get_company_bulletin
 // Retrieve the text of a company bulletin. 	

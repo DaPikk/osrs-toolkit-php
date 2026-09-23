@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: get_deleted_contacts
 // Retrieves a list of deleted restorable contacts from a user's wembail address book. 

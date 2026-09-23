@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: migration_trace
 // Retrieve detailed information about a single user in a current or historical migration job. 

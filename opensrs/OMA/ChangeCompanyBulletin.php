@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: change_company_bulletin
 // Create, edit or delete a company bulletin. 	

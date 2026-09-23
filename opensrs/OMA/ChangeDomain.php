@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: change_domain
 // Create a new domain or change the attributes of an existing domain. 	

@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: logout_user
 // Terminate all IMAP and POP sessions the user has active 

@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: migration_add
 // Create a bulk migration job, to copy email from many remote accounts to many local accounts. 	

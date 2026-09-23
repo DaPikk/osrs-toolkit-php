@@ -3,6 +3,7 @@
 namespace opensrs\OMA;
 
 use opensrs\OMA;
+use opensrs\Exception;
 
 // command: migration_jobs
 // Retrieve a list of a user's current and historical migration jobs.  	
