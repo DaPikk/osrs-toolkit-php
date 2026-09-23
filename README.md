@@ -20,7 +20,7 @@ This project is based on the original OpenSRS toolkit and contains additional co
 
 ## Features
 
-* ✅ PHP **8.4** support
+* ✅ PHP **8.4** (from 7.4+) support
 * ✅ Tested using GitHub Actions
 * ✅ Composer-based installation
 * ✅ PSR-4 autoloading
@@ -83,7 +83,7 @@ php -m | grep -E 'curl|openssl|json'
 This fork targets:
 
 ```text
-PHP >= 8.4 < 9.0
+PHP >= 7.4 >= 8.0 < 9.0
 ```
 
 The corresponding Composer requirement is:
@@ -91,7 +91,7 @@ The corresponding Composer requirement is:
 ```json
 {
     "require": {
-        "php": "^8.4"
+        "php": "^7.4 || ^8.0",
     }
 }
 ```
@@ -101,7 +101,7 @@ The corresponding Composer requirement is:
 | PHP Version       |             Status                      |
 | ----------------- | :-------------------------------------: |
 | PHP 8.4           |            ✅ Tested                    |
-| PHP 8.3 and older |  ⚠️ Tested and supported from PHP 7.4+  |
+| PHP 7.4 and newer |  ⚠️ Tested and supported from PHP 7.4+  |
 | PHP 9.x           | ⚠️ Not yet declared compatible          |
 
 PHP compatibility is validated through the project's GitHub Actions test workflow.
