@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+    beStrictAboutTestsThatDoNotTestAnything="true"
+>
+    <testsuites>
+        <testsuite name="unit">
+            <directory>tests/unit</directory>
+
+            <!--
+              This legacy test performs live OpenSRS I/O while being located
+              under tests/unit. Keep the offline compatibility matrix deterministic.
+            -->
+            <exclude>tests/unit/opensrs/RequestFactoryTest.php</exclude>
+        </testsuite>
+
+        <testsuite name="integration">
+            <directory>tests/integration</directory>
+        </testsuite>
+    </testsuites>
+
+    <groups>
+        <exclude>
+            <!-- Valid-submission tests generally reach the live OpenSRS API. -->
+            <group>validsubmission</group>
+        </exclude>
+    </groups>
+</phpunit>

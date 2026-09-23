@@ -1,0 +1,9 @@
+.idea
+*.log
+openSRS_config.php
+tags
+/vendor/
+composer.lock
+.vagrant
+.github
+.git
